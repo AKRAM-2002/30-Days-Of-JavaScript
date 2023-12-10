@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax Type Ahead</title>
+    
+</head>
+<body>
+    
+    <div class="container">
+        <h2 class="header"><span>Find </span>State or City</h2>
+        <main class="main">
+          <form>
+            <label for="search"><i class="ri-search-line"></i> </label>
+            <input
+              type="search"
+              name="search"
+              class="search "
+              placeholder="Type to search"
+            />
+          </form>
+          <ul class="suggestions">
+            <li>
+                <span class="name"></span>
+                <span class="country"></span>
+            </li>
+          </ul>
+        </main>
+    </div>
+  
+
+    <script>
+        const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json'
+        //We define the empty 
+        const cities = [];
+
+    
+        fetch(endpoint)
+         .then(blob => blob.json())
+         .then(data => cities.push(...data))
+
+        // a function named findMatches that takes two arguments, the wordToMatch and the cities array.
+
+        function findMatches(wordToMatch, cities) {
+            const regex = new RegExp(wordToMatch, 'gi');
+            return cities.filter(place => {
+                // Check if place.name and place.state are defined before using match
+                const nameMatch = place.name && place.name.match(regex);
+                const stateMatch = place.state && place.state.match(regex);
+
+                // Return true if either nameMatch or stateMatch is truthy
+                return nameMatch || stateMatch;
+            });
+        }
+
+        
+        function displayMatches(){
+            
+            const matchArray = findMatches(this.value, cities);
+            const html = matchArray.map(place => {
+                return `
+                <li>
+                    <span class="name">${place.city}, ${place.state}</span>
+                    <span class="country">${place.population}</span>
+                </li>
+                `;
+            }).join('');
+            suggestions.innerHTML = html;
+        }
+       
+        const searchInput = document.querySelector('.search');
+        const suggestions = document.querySelector('.suggestions');
+
+
+        searchInput.addEventListener('change', displayMatches);
+        searchInput.addEventListener('keyup', displayMatches);
+
+
+    </script>
+
+    <style>
+        
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+
+        *,
+        *::before,
+        *::after {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        }
+        body{
+            background-color: #e00f0f;
+            margin: 0;
+            padding: 0;
+        }
+        input{
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+       .container{
+            width: 400px;
+            margin: 10px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            place-items: center;
+        }
+
+        input{
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-left: -12px;
+        }
+
+        form {
+            padding: 0.3rem 0.8rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            border: 1px solid #f0f8ff;
+            border-radius: 50px;
+        }
+        .main {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        }
+
+        
+
+        input[type="search"] {
+        border: 0;
+        outline: none;
+        width: 90%;
+        
+        font-family: inherit;
+        font-size: 1.2rem;
+        
+        }
+
+        
+       
+        .hl {
+            color: red;
+        }
+    </style>
+    
+    
+    
+    
+
+    
+</body>
+</html>
