@@ -54,14 +54,19 @@
             });
         }
 
-        
         function displayMatches(){
             
             const matchArray = findMatches(this.value, cities);
             const html = matchArray.map(place => {
+                const regex = new RegExp(this.value, 'gi');
+                const cityName = place.city.replace(regex,
+                `<span class="h1">${this.value}</span>`);
+                const stateName = place.state.replace(regex,
+                `<span class="h2">${this.value}</span>`);
+
                 return `
                 <li>
-                    <span class="name">${place.city}, ${place.state}</span>
+                    <span class="name">${cityName}, ${stateName}</span>
                     <span class="country">${place.population}</span>
                 </li>
                 `;
@@ -146,6 +151,39 @@
         font-family: inherit;
         font-size: 1.2rem;
         
+        }
+        ul{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .suggestions {
+            
+            width: 100%;
+            
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            padding: 10px;
+            margin-top: 10px;
+            z-index: 100;
+        }
+        li{
+            padding: 10px;
+            border-bottom: 1px solid #18466e;
+        }
+        li:last-child{
+            border-bottom: 0;
+        }
+        span{
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #18466e;
+        }
+        span:last-child{
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #18466e;
         }
 
         
