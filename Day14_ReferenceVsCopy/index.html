@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Reference Vs Copy</title>
+        </head>
+        <body>
+        
+            
+        </body>
+        <script>
+            // start with strings, numbers and booleans
+            // let age = 100;
+            // let age2 = age;
+            // console.log(age,age2)
+            // age = 200;
+            // console.log(age,age2)
+
+            // let name = "Akram"
+            // let name2 = name
+            // console.log(name,name2);
+            // name += "-Developer";
+            // console.log(name,name2);
+
+            //let's say we have an array of players
+            let players = ["Ronaldo","Messi","Neymar"];
+            // and we want to make a copy of it
+            let teamMates = players;
+            console.log("Original Array:",players,"\nCopy Array:",teamMates);
+            // now lets change one value in the original array
+            players[0] ="Cristiano Ronaldo";
+            console.log("\nAfter changing Original Value:\nOriginal Array:",players,"\nCopy Array:",teamMates);
+
+            // that's a problem we changed the copy array too 
+            console.log("\nAfter changing Original Array:\nOriginal Array:",players,"\nCopy Array:",teamMates);
+
+            const teamMates2 = players.slice();
+            teamMates[0] = "Cris"
+            console.log("\nModified Original Array:\t",players,"\nModified Copy Array:\t",teamMates2);
+
+
+            // create a new array and concatenate the old one in
+            const teamMates3 = [].concat(players);
+            teamMates3.push("Davinci");
+            console.log("\nNewly Added Player:\t\t",teamMates3);
+
+            // Another way
+            const teamMates4 = [...players];
+            teamMates4.push("Davinci");
+            console.log("\nSpread Syntax Newly Added Player:\t",teamMates4);
+
+            // With objects
+            const person = {
+                firstName:"John",
+                lastName:"Doe"
+            
+            }
+
+            const PersonCopy = person;
+            PersonCopy.firstName = "Akram";
+            console.log("\nBefore Modification : \nObject : ",person,"\nCopy Object : ",PersonCopy);
+
+            // how do we take a copy instead?
+            const PersonCopy2 = { ...person };
+            PersonCopy2.lastName = "Smith";
+            PersonCopy2.age = 21;
+            console.log("\nAfter Modification : \nObject : ",person,"\nCopy Object : ",PersonCopy2);
+
+            // Another method?
+            function deepClone(obj) {
+                return JSON.parse(JSON.stringify(obj));
+                }
+            const obj = {
+                a:{
+                    b:
+                    {
+                        c:'hello world!'
+                    },
+                    }
+            };
+
+            
+            const cloneObj = deepClone(obj);
+            cloneObj.a.b.c = "Wach akhona"
+            console.log('\nDeep Cloning an object:\nOriginal Obj:',obj,'\ncloned Obj: ',cloneObj);
+
+
+        </script>
+    </head>
+</html>

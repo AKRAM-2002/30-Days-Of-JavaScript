@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Restaurant Item Manager</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: url(https://media.istockphoto.com/id/1299301930/photo/food-at-a-wedding.jpg?s=612x612&w=is&k=20&c=1tPNdvmOsUaOplTw4dPNAmVlgeDI2H2Cl6MIfozJwQE=);
+
+        }
+
+        .wrapper {
+            overflow: hidden;
+            clear: both;
+            margin: 10px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        ul {
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .plates input{
+            display: none;
+        }
+        .plates input + label::before{
+            content: '';
+            margin-right: 10px;
+        }
+        .plates input checked{
+            content: '🟩';
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <h2>Restaurant Item Manager</h2>
+            <ul class="plates">
+                <li>Loading Items...</li>
+            </ul>
+            <form class="add-items">
+                <input type="text" name="item" placeholder="Item Name" required>
+                <input type="submit" value="Add Item">
+            </form>
+        </div>
+    <script>
+        // Script for handling form submission
+        const addItemsForm = document.querySelector('.add-items');
+        const platesList = document.querySelector('.plates');
+        const items = JSON.parse(localStorage.getItem('items')) || [];
+
+        function addItems(e) {
+            // Prevent the default form submission
+            e.preventDefault();
+            // Get the item from the form field
+            const ItemName = (this.querySelector('[name=item]')).value;
+            const item = {
+                name: ItemName,
+                done: true
+            }
+
+            items.push(item)
+            updatePlateView(items,platesList);
+            localStorage.setItem('items',JSON.stringify(items))
+            this.reset()
+        }
+        function updatePlateView(plates = [], platesList){
+            platesList.innerHTML = plates.map((plate,i) =>{
+                return `
+                <li>
+                    <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? 'checked' : ''} onclick=${toggleDone}/>
+                    <label for="">${plate.name}</label>
+                </li>
+                `;
+            }).join('');
+        }
+        function toggleDone(e){
+            if(!e.target.matches('input')) return;
+            const index = e.target.dataset.index;
+            items[index].done = !items[index].done;
+            localStorage.setItem('items',JSON.stringify(items));
+            updatePlateView([items[index]],plapesList);
+            console.log(e)
+        }
+
+        // Attach the event listener to the form
+        addItemsForm.addEventListener('submit', addItems);
+        platesList.addEventListener('click', toggleDone);
+        
+        
+        updatePlateView(items,platesList);
+    </script>
+</body>
+</html>
