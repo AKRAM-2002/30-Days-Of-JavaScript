@@ -82,6 +82,17 @@
         .plates input checked{
             content: '🟩';
         }
+        button{
+            font-size: 16px;
+            height: 38px;
+            width:  20%;
+            text-align: center;
+            color:#000000 ;
+            background-image : linear-gradient(to right ,#257f15,#0bba0b) ;
+            border:none;
+            margin-top: 1rem;
+
+        }
     </style>
 </head>
 <body>
@@ -94,7 +105,9 @@
             <form class="add-items">
                 <input type="text" name="item" placeholder="Item Name" required>
                 <input type="submit" value="Add Item">
+
             </form>
+            <button class="btn-clear">Clear All</button>
         </div>
     <script>
         // Script for handling form submission
