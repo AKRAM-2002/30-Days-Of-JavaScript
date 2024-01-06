@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tally Strings Times with Reduce</title>
+    </head>
+    <body>
+        <style>
+            
+        </style>
+        <h1>Tally Strings Times with Reduce</h1>
+        <h2>Total Time:</h2>
+        
+        <ul id="tally">
+            <li data-time="2:14">Video1</li>
+            <li data-time="2:15">Video2</li>
+            <li data-time="3:20">Video3</li>
+            <li data-time="4:05">Video4</li>
+            <li data-time="1:45">Video5</li>
+            <li data-time="3:30">Video6</li>
+            <li data-time="2:55">Video7</li>
+            <li data-time="1:50">Video8</li>
+            <li data-time="3:10">Video9</li>
+            <li data-time="4:25">Video10</li>
+            <li data-time="2:40">Video11</li>
+            <li data-time="3:15">Video12</li>
+            <li data-time="2:25">Video13</li>
+            <li data-time="4:00">Video14</li>
+            <li data-time="1:55">Video15</li>
+            <li data-time="3:05">Video16</li>
+            <li data-time="2:10">Video17</li>
+            <li data-time="4:30">Video18</li>
+            <li data-time="2:35">Video19</li>
+            <li data-time="3:25">Video20</li>
+            <li data-time="2:50">Video21</li>
+            <li data-time="1:40">Video22</li>
+            <li data-time="3:35">Video23</li>
+            <li data-time="2:20">Video24</li>
+            <li data-time="4:15">Video25</li>
+            <li data-time="1:30">Video26</li>
+            <li data-time="3:45">Video27</li>
+            <li data-time="2:30">Video28</li>
+            <li data-time="4:10">Video29</li>
+            <li data-time="1:35">Video30</li>
+            <li data-time="3:40">Video31</li>
+            <li data-time="2:05">Video32</li>
+            <li data-time="4:20">Video33</li>
+            <li data-time="2:45">Video34</li>
+            <li data-time="3:00">Video35</li>
+            <li data-time="1:50">Video36</li>
+            <li data-time="3:10">Video37</li>
+            <li data-time="2:15">Video38</li>
+            <li data-time="4:25">Video39</li>
+            <li data-time="2:40">Video40</li>
+            <li data-time="3:15">Video41</li>
+            <li data-time="2:25">Video42</li>
+            <li data-time="4:00">Video43</li>
+            <li data-time="1:55">Video44</li>
+            <li data-time="3:05">Video45</li>
+            <li data-time="2:10">Video46</li>
+            <li data-time="4:30">Video47</li>
+            <li data-time="2:35">Video48</li>
+            <li data-time="3:25">Video49</li>
+            <li data-time="2:50">Video50</li>
+            <li data-time="1:40">Video51</li>
+            <li data-time="3:35">Video52</li>
+            <li data-time="2:20">Video53</li>
+            <li data-time="4:15">Video54</li>
+            <li data-time="1:30">Video55</li>
+            <li data-time="3:45">Video56</li>
+            <li data-time="2:30">Video57</li>
+            <li data-time="4:10">Video58</li>
+        </ul>
+
+
+        <script>
+            const tally = document.querySelector('#tally');
+            const times = tally.querySelectorAll('li[data-time]');
+            const timesArray = Array.from(times);
+            console.log(timesArray);
+
+            const totalTime = timesArray.reduce((total, time) => {
+                const timeString = time.getAttribute('data-time');
+
+                const timeNumber = Number(timeString.split(':')[0]) * 60 + Number(timeString.split(':')[1]);
+                console.table(timeNumber)
+                return total + timeNumber;
+            }, 0);
+
+            console.log(totalTime); // in seconds
+
+            const hours = Math.floor(totalTime / 3600);
+
+            const seconds = hours % 3600;
+            const minutes = Math.floor(seconds / 60);
+            
+            console.log(hours+" hours");
+            //console.log(minutes+" minutes");
+            console.log(seconds+" seconds");
+            document.querySelector('h2').textContent = document.querySelector('h2').textContent + `${hours}:${minutes}:${seconds}`;
+            
+        </script>
+
+    </body>
+</html>
