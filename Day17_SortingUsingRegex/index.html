@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sort Bands Names Without articles</title>
+    </head>
+    <body>
+        <style>
+
+        </style>
+        <h1>Sort bands Names Without articles</h1>
+        
+        <ul id="bands"></ul>
+        <script>
+            const bands = [
+                "The Quantum Echo",
+                "A Lunar Serenade",
+                "An Neon Nebula",
+                "The Cosmic Drifters",
+                "An Eternal Resonance",
+                "The Galactic Groove Machine",
+                "An Astral Echoes",
+                "The Celestial Harmony",
+                "A Synthetic Stardust",
+                "The Nebula Nomads",
+                "A Sonic Solaris",
+                "The Interstellar Pulse",
+                "The Gravity Waves Collective",
+                "A Temporal Rift Ensemble",
+                "The Luminous Alchemy",
+                ];
+            
+            function strip(bandName){
+                return bandName.replace(/^(a |the |an )/i, '');
+            }
+            const sortedBands = bands.sort((a,b) => {
+                return (strip(a)>strip(b)) ? 1 : -1;
+                
+            });
+            /// display in the ul >>>Junior Developer<<<<<
+            // sortedBands.forEach(function (band) {
+            //     const li = document.createElement('li');
+            //     li.textContent = band;
+            //     document.getElementById('bands').appendChild(li);
+            // });
+            
+            /// display in the ul >>>>>Senior Developer<<<<<
+            document.querySelector('#bands').innerHTML = sortedBands.map(band => `<li>${band}</li>`).join('');
+            
+        </script>
+    </body>
+</html>
