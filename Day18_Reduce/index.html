@@ -19,54 +19,25 @@
 
         <script>
             const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
-            console.log(timeNodes)
-            const seconds = timeNodes
+            //console.log(timeNodes);
+
+            const totalSeconds = timeNodes
                 .map(timeNode => timeNode.dataset.time)
                 .map(timeCode => {
-                     const [minutes, seconds] = timeCode.split(':').map(parseFloat);
-                     return minutes * 60 + seconds;
-                     console.log(minutes, seconds);
+                    const [minutes, seconds] = timeCode.split(':').map(parseFloat);
+                    //console.log(minutes, seconds); destructuring time nodes
+                    return minutes * 60 + seconds;
                 })
-                .reduce((total, Vidseconds) => total + Vidseconds);
+                .reduce((total, Vidseconds) => total + Vidseconds, 0);
 
-                let secondsLeft = seconds;
-        
+            let secondsLeft = totalSeconds;
 
-                const hours = Math.floor(secondsLeft / 3600);
-                secondsLeft = secondsLeft % 3600;
-                minutes = Math.floor(secondsLeft / 60)
-                secondsLeft = secondsLeft % 60;
+            const hours = Math.floor(secondsLeft / 3600);
+            secondsLeft %= 3600;
+            const minutes = Math.floor(secondsLeft / 60);
+            secondsLeft %= 60;
 
-                
-
-                document.querySelector('h2').textContent = document.querySelector('h2').textContent + `${hours}:${minutes}:${secondsLeft}`;
-            
-            // const tally = document.querySelector('#tally');
-            // const times = tally.querySelectorAll('li[data-time]');
-            // const timesArray = Array.from(times);
-            // console.log(timesArray);
-
-            // const totalTime = timesArray.reduce((total, time) => {
-            //     const timeString = time.getAttribute('data-time');
-
-            //     const timeNumber = Number(timeString.split(':')[0]) * 60 + Number(timeString.split(':')[1]);
-            //     console.table(timeNumber)
-            //     return total + timeNumber;
-            // }, 0);
-
-            // console.log(totalTime); // in seconds
-
-            // const hours = Math.floor(totalTime / 3600);
-
-            // const seconds = hours % 3600;
-            // const minutes = Math.floor(seconds / 60);
-            
-            // console.log(hours+" hours");
-            // //console.log(minutes+" minutes");
-            // console.log(seconds+" seconds");
-            // document.querySelector('h2').textContent = document.querySelector('h2').textContent + `${hours}:${minutes}:${seconds}`;
-            
+            document.querySelector('h2').textContent = `Total Time: ${hours}:${minutes}:${secondsLeft}`;
         </script>
-
     </body>
 </html>

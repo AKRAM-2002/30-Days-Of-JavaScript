@@ -1,0 +1,17 @@
+{
+  "name": "day19_webcam_fun",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "start": "browser-sync start --server --files '*.css, *.html, *.js'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^3.0.2",
+    "http-server": "^14.1.1"
+  }
+}
